@@ -1,6 +1,8 @@
+#include<stdint.h>
+
 struct Stack{
-    int top;
-    int capacity;
+    uint_least8_t top;
+    uint_least8_t capacity;
     int *data;
 };
 
