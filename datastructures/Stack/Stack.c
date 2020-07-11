@@ -24,13 +24,12 @@ int deleteStack(struct Stack *stack){
     free(stack);
 }
 
-#define isStackFull(stack)     (stack != NULL && (stack->top + 1) == stack->capacity)
-#define isStackEmpty(stack)    (stack == NULL || stack->top < 0)
+#define isStackFull(stack)     ((stack != NULL && (stack->top + 1) == stack->capacity))
+#define isStackEmpty(stack)    ((stack == NULL || stack->top < 0))
 
 //Modifications Functions
 int push(struct Stack *stack, int *data){
-    if(stack == NULL) return EOF;
-    if(isStackFull(stack)) return EOF;
+    if(stack == NULL || isStackFull(stack)) return EOF;
 
     *(stack->data + ++(stack->top)) = *data;
 
