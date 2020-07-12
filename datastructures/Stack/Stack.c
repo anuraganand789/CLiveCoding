@@ -1,6 +1,4 @@
 #include "Stack.h" //My Stack Declarations
-#include<stdio.h>  //Input Output Operations
-#include<stdlib.h> //malloc and free functions
 
 //Creation
 struct Stack *createStack(int *capacity){
