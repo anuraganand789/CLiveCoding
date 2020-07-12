@@ -3,7 +3,7 @@
 #include<stdlib.h> //malloc and free functions
 
 //Creation
-extern struct Stack *createStack(int *capacity){
+struct Stack *createStack(int *capacity){
     if(*capacity < 1) return NULL;
     
     struct Stack *stack = (struct Stack *) 
