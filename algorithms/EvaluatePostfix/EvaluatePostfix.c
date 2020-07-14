@@ -5,18 +5,18 @@ void main(int argCount, char **arguments){
     char *postfixExpression = *++arguments;
     printf("%s -> ", postfixExpression);
 
-    unsigned char noOfOperands = 0;
+    Byte noOfOperands = 0;
 
     for(; *postfixExpression != '\0'; ++postfixExpression) if(isOperand(postfixExpression)) ++noOfOperands;
 
-    unsigned short *stackOfOperands = (unsigned short *) calloc(noOfOperands, sizeof(unsigned short));
+    Word *stackOfOperands = (Word *) calloc(noOfOperands, sizeof(Word));
     char            topOfStack = -1;
 
     for(postfixExpression = *arguments; *postfixExpression != '\0'; ++postfixExpression){
         if(isOperand(postfixExpression)) *(stackOfOperands + ++topOfStack) = alphaToInt(postfixExpression);
 	else {
-	    unsigned short *operand1 = (stackOfOperands + topOfStack--);
-	    unsigned short *operand2 = (stackOfOperands + topOfStack--);
+	    Word *operand1 = (stackOfOperands + topOfStack--);
+	    Word *operand2 = (stackOfOperands + topOfStack--);
 	    *(stackOfOperands + ++topOfStack) = performOperation(postfixExpression, operand1, operand2);
 	}
     }
@@ -26,7 +26,7 @@ void main(int argCount, char **arguments){
     free(stackOfOperands);
 }
 
-unsigned short alphaToInt(char *operand){
+Word alphaToInt(char *operand){
     switch(*operand){
         default : return EOF;
 	case '0': return 0;
@@ -42,7 +42,7 @@ unsigned short alphaToInt(char *operand){
     }
 }
 
-unsigned short performOperation(char *operator, unsigned short *operand1, unsigned short *operand2){
+Word performOperation(char *operator, Word *operand1, Word *operand2){
     switch(*operator){
         default : return -1;
 	case '-' : return *operand1 - *operand2;

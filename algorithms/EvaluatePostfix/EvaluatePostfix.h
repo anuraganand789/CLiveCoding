@@ -2,6 +2,9 @@
 #include<stdlib.h>
 #include<stdbool.h>
 
+typedef unsigned short Word;
+typedef unsigned char  Byte;
+
 bool isOperand(char *);
-unsigned short performOperation(char *, unsigned short *, unsigned short *);
-unsigned short alphaToInt(char *);
+Word performOperation(char *, Word *, Word *);
+Word alphaToInt(char *);
