@@ -52,6 +52,6 @@ Word performOperation(char *operator, Word *operand1, Word *operand2){
     }
 }
 
-bool isOperand(char *charachter) {
+inline bool isOperand(char *charachter) {
     return *charachter >= '0' && *charachter <= '9';
 }
