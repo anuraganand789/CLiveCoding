@@ -140,9 +140,13 @@ struct AVLNode *deleteAVLNode(struct AVLNode * root, int const data){
     int balanceFactorOfRoot = balanceFactorOfAVLNode(root);
 
     if(1 < balanceFactorOfRoot) {
+	 //if right subtree has an extra node then , right rotation will not balance the number of nodes
+	 //because that extra node is present in the right of the left node
          if(0 > balanceFactorOfAVLNode(root->left)) root->left = rotateLeft(root->left);
 	 root = rotateRight(root);
     } else if(-1 > balanceFactorOfRoot) {
+	//If the left subtree of the right node is heavy then the extra node needs to be moved to
+	//the right subtree
         if(0 < balanceFactorOfAVLNode(root->right)) root->right = rotateRight(root->right);
 	root = rotateLeft(root);
     }
