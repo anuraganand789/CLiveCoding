@@ -3,6 +3,14 @@
 
 #include "AVL.h"
 
+extern struct AVLNode *freeAllMemoryInAVLTree(struct AVLNode * const root){
+    if(NULL == root) return NULL;
+
+    root->left  = freeAllMemoryInAVLTree(root->left);
+    root->right = freeAllMemoryInAVLTree(root->right);
+    free(root);
+    return NULL;
+}
 struct AVLNode *newAVLNode(int const data){
     struct AVLNode *newNode = (struct AVLNode *) malloc(sizeof(struct AVLNode));
 
@@ -154,7 +162,7 @@ struct AVLNode *deleteAVLNode(struct AVLNode * root, int const data){
     return root;
 }
 
-void main(){
+int main(){
     struct AVLNode *head = newAVLNode(35);
     printAVLTree(head);
 
@@ -184,4 +192,7 @@ void main(){
 
     head = deleteAVLNode(head, 29);
     printAVLTree(head);
+
+    freeAllMemoryInAVLTree(head);
+    return 0;
 }

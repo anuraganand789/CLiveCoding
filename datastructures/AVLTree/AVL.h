@@ -9,8 +9,9 @@ struct AVLNode{
 extern struct AVLNode *newAVLNode(int const data);
 
 //data modification
-extern struct AVLNode *insert(struct AVLNode *root, int const data);
-extern struct AVLNode *deleteAVLNode(struct AVLNode *root, int const data);
+extern struct AVLNode *insert(struct AVLNode *root, int const);
+extern struct AVLNode *deleteAVLNode(struct AVLNode *root, int const);
+extern struct AVLNode *freeAllMemoryInAVLTree(struct AVLNode * const);
 
 //tree balancing
 extern struct AVLNode *rotateLeft(struct AVLNode * const);
