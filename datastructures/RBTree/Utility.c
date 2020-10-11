@@ -1,8 +1,8 @@
 #include "RB.h"
 
-bool itIsARedNode(struct RBNode * rbNode){ return rbNode->color == Color.RED; }
+bool itIsARedNode(struct RBNode * rbNode){ return notNull(rbNode) && rbNode->color == Color.RED; }
 
-bool itIsABlackNode(struct RBNode * rbNode){ return rbNode->color == Color.BLACK; }
+bool itIsABlackNode(struct RBNode * rbNode){ return null(rbNode) || rbNode->color == Color.BLACK; }
 
 bool isLeftChildOf(struct RBNode * const rootNode, 
                    struct RBNode * const rbNode) { 
