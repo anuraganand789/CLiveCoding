@@ -33,4 +33,5 @@ void *debugMalloc(size_t sizeOfMalloc){
 void debugFree(void *pointer){
   static int count = 0;
   printf("Memory De-allocated %d times", ++count);
+  free(pointer);
 }
