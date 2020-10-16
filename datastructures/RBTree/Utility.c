@@ -1,32 +1,30 @@
 #include "RB.h"
 
-bool itIsARedNode(struct RBNode * rbNode){ return notNull(rbNode) && rbNode->color == Color.RED; }
+bool itIsARedNode(struct RBNode * rbNode){ return notNull(rbNode) && rbNode->color == RED; }
 
-bool itIsABlackNode(struct RBNode * rbNode){ return null(rbNode) || rbNode->color == Color.BLACK; }
+bool itIsABlackNode(struct RBNode * rbNode){ return null(rbNode) || rbNode->color == BLACK; }
 
-bool isLeftChildOf(struct RBNode * const rootNode, 
-                   struct RBNode * const rbNode) { 
-  return notNull(rootNode) && isLeftChildOf(rootNode, rbNode); 
+bool isLeftChildOf(struct RBNode * const parentNode, struct RBNode * const childNode) { 
+  return notNull(parentNode) && leftChildOf(parentNode) == childNode; 
 }
 
-bool isRightChildOf(struct RBNode * const rootNode, 
-                    struct RBNode * const rbNode){
-  return noNull(rootNode) && isRightChildOf(rootNode, rbNode);
+bool isRightChildOf(struct RBNode * const parentNode, struct RBNode * const childNode){
+  return notNull(parentNode) && rightChildOf(parentNode) == childNode;
 }
 
 bool null(struct RBNode * const rbNode) { return rbNode == NULL; }
 
 bool notNull(struct RBNode * const rbNode) { return rbNode != NULL; }
 
-bool hasLeftChild(struct RBNode * const rbNode) { return notNull(rbNode->left); }
+bool hasLeftChild(struct RBNode * const rbNode) { return notNull(leftChildOf(rbNode)); }
 
-bool hasRightChild(struct RbNode * const rbNode) { return notNull(rbNode->right); }
+bool hasRightChild(struct RBNode * const rbNode) { return notNull(rightChildOf(rbNode)); }
 
-bool hasParent(struct RBNode * const rbNode) { return notNull(parentOf(roo)); }
+bool hasParent(struct RBNode * const rbNode) { return notNull(parentOf(rbNode)); }
 
 char *nodeColorAsString(struct RBNode * const rbNode){
   if(notNull(rbNode)) {
-    return (rbNode->color == COLOR.RED) 
+    return (rbNode->color == RED) 
            ? "RED"
            : "BLACK";
   }
