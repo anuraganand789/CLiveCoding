@@ -6,7 +6,7 @@
 //    /   \                                         /  \
 //  LC     RC                                      RC  RP
 
-struct RBNode *leftNodeReplacesTheParent(struct RBNode * const rbNode){
+struct RBNode *leftChildReplacesTheParent(struct RBNode * const rbNode){
   struct RBNode * parent;
 
   if(notNull(rbNode) && notNull(parent = parentOf(rbNode))) {
@@ -40,7 +40,7 @@ struct RBNode *leftNodeReplacesTheParent(struct RBNode * const rbNode){
 //	   LC RC                S  LC
 //
 
-struct RBNode *rightNodeReplacesTheParent(struct RBNode * const rbNode){
+struct RBNode *rightChildReplacesTheParent(struct RBNode * const rbNode){
   struct RBNode * parent;
   if(notNull(rbNode) && notNull(parent = parentOf(rbNode))){
 

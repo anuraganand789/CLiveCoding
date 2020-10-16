@@ -47,8 +47,8 @@ extern char *nodeColorAsString(struct RBNode * const rbNode);
 extern int  dataOf(struct RBNode * const rbNode);
 
 //Rotations or Node Relation Modification
-extern struct RBNode *leftNodeReplacesTheGrandParent(struct RBNode * const rbNode);
-extern struct RBNode *rightNodeReplacesTheGrandParent(struct RBNode * const rbNode);
+extern struct RBNode *leftChildReplacesTheGrandParent(struct RBNode * const rbNode);
+extern struct RBNode *rightChildReplacesTheGrandParent(struct RBNode * const rbNode);
 
-extern struct RBNode *leftNodeReplacesTheParent(struct RBNode * const rbNode);
-extern struct RBNode *rightNodeReplacesTheParent(struct RBNode * const rbNode);
+extern struct RBNode *leftChildReplacesTheParent(struct RBNode * const rbNode);
+extern struct RBNode *rightChildReplacesTheParent(struct RBNode * const rbNode);
