@@ -14,12 +14,11 @@ struct RBNode *uncleOf(struct RBNode * const root){
 }
 
 struct RBNode *parentOf(struct RBNode * const root){
-  return notNull(root) ? parentOf(root) : NULL;
+  return notNull(root) ? root->parent : NULL;
 }
 
 struct RBNode *grandParentOf(struct RBNode * const root){
-  struct RBNode * const rootParent = parentOf(root);
-  return notNull(rootParent) ? parentOf(rootParent) : NULL;
+  return parentOf(parentOf(root)); 
 }
 
 struct RBNode *siblingOf(struct RBNode * const root){
