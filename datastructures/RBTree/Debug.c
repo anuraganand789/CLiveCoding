@@ -14,8 +14,8 @@ void printRBTree(struct RBNode * root, int const noOfRepeats, char const indentC
     printRBTree(leftChildOf(root), noOfRepeats + 2, indentChar);
 
     for(int i = noOfRepeats; i > -1; --i) { printf("%c", indentChar); }
-    printf("=>");
-    printRBNode(root);
+
+    printf("=>"); printRBNode(root);
 
     printRBTree(rightChildOf(root), noOfRepeats + 2, indentChar);
   }
