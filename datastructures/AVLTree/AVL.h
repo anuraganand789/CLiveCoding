@@ -1,3 +1,7 @@
+#include<stdio.h>
+#include<stdbool.h>
+#include<stdlib.h>
+
 struct AVLNode{
     struct AVLNode *left;
     struct AVLNode *right;
@@ -11,7 +15,7 @@ extern struct AVLNode *newAVLNode(int const data);
 //data modification
 extern struct AVLNode *insert(struct AVLNode *root, int const);
 extern struct AVLNode *deleteAVLNode(struct AVLNode *root, int const);
-extern struct AVLNode *freeAllMemoryInAVLTree(struct AVLNode * const);
+extern void            freeAllMemoryInAVLTree(struct AVLNode * const);
 
 //tree balancing
 extern struct AVLNode *rotateLeft(struct AVLNode * const);
@@ -28,3 +32,7 @@ extern int max(int const, int const);
 //Log and debug
 extern void printAVLTree(struct AVLNode * const);
 extern void printAVLNode(struct AVLNode * const);
+
+//Conditions
+extern bool null(void * const anyObject);
+extern bool notNull(void * const anyObject);
