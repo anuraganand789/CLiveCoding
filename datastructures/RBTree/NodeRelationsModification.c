@@ -66,10 +66,32 @@ struct RBNode *rightChildReplacesTheParent(struct RBNode * const rbNode){
   return rbNode;
 }
 
+//              G                               C
+//	       / \                            /   \
+//	      P   RG                         P     G
+//	     / \               =>           / \    / \
+//          LP  C                          LP  LC RC  RG
+//             / \
+//	      LC  RC
+//
 
-
-//extern struct RBNode *leftNodeReplacesTheGrandParent(struct RBNode * const rbNode);
 //extern struct RBNode *rightNodeReplacesTheGrandParent(struct RBNode * const rbNode);
+
+//             G                                 C
+//           /  \                              /   \
+//          LG   P            =>              G     P
+//              /  \                         / \    / \
+//             C    RP                      LG LC  RC  RP
+//            / \
+//           LC  RC
+//
+//
+
+struct RBNode *leftNodeReplacesTheGrandParent(struct RBNode * const rbNode){
+    if(notNull(rbNode)){
+        struct leftChildOf
+    }
+}
 
 
 
