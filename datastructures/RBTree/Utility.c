@@ -1,8 +1,5 @@
 #include "RB.h"
 
-bool itIsARedNode(struct RBNode * rbNode){ return notNull(rbNode) && rbNode->color == RED; }
-
-bool itIsABlackNode(struct RBNode * rbNode){ return null(rbNode) || rbNode->color == BLACK; }
 
 bool isLeftChildOf(struct RBNode * const parentNode, struct RBNode * const childNode) { 
   return notNull(parentNode) && leftChildOf(parentNode) == childNode; 
@@ -12,15 +9,6 @@ bool isRightChildOf(struct RBNode * const parentNode, struct RBNode * const chil
   return notNull(parentNode) && rightChildOf(parentNode) == childNode;
 }
 
-bool null(struct RBNode * const rbNode) { return rbNode == NULL; }
-
-bool notNull(struct RBNode * const rbNode) { return rbNode != NULL; }
-
-bool hasLeftChild(struct RBNode * const rbNode) { return notNull(leftChildOf(rbNode)); }
-
-bool hasRightChild(struct RBNode * const rbNode) { return notNull(rightChildOf(rbNode)); }
-
-bool hasParent(struct RBNode * const rbNode) { return notNull(parentOf(rbNode)); }
 
 char *nodeColorAsString(struct RBNode * const rbNode){
   if(notNull(rbNode)) {
@@ -30,4 +18,15 @@ char *nodeColorAsString(struct RBNode * const rbNode){
   }
   return "NULL";
 }
-int dataOf(struct RBNode * const rbNode){ return notNull(rbNode) ? rbNode->data : EOF; }
+//***************************************Inlined functions in RB.h*******************************//
+bool null(struct RBNode * const rbNode); 
+bool notNull(struct RBNode * const rbNode);
+
+bool itIsARedNode(struct RBNode *rbNode);
+bool itIsABlackNode(struct RBNode * rbNode);
+
+bool hasLeftChild(struct RBNode * const rbNode);
+bool hasRightChild(struct RBNode * const rbNode);
+bool hasParent(struct RBNode * const rbNode);
+
+int dataOf(struct RBNode * const rbNode); 

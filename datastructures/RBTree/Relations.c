@@ -13,14 +13,6 @@ struct RBNode *uncleOf(struct RBNode * const root){
   return NULL;
 }
 
-struct RBNode *parentOf(struct RBNode * const root){
-  return notNull(root) ? root->parent : NULL;
-}
-
-struct RBNode *grandParentOf(struct RBNode * const root){
-  return parentOf(parentOf(root)); 
-}
-
 struct RBNode *siblingOf(struct RBNode * const root){
   if(notNull(root)){
     struct RBNode *rootParent = parentOf(root);
@@ -33,24 +25,15 @@ struct RBNode *siblingOf(struct RBNode * const root){
   return NULL;
 }
 
-struct RBNode *leftChildOf(struct RBNode *root){
-  return notNull(root) ? leftChildOf(root)  : NULL;
-}
 
-struct RBNode *rightChildOf(struct RBNode *root){
-  return notNull(root) ? rightChildOf(root) : NULL;
-}
+//************************inlined functions -> defined in RB.h***********************************//
 
 //These functions modify the parent child relations
-void makeLeftChildOf(struct RBNode * const parentNode, struct RBNode * const leftChild){
-  if(notNull(parentNode)) parentNode->left = leftChild;
-}
+void makeLeftChildOf(struct RBNode * const parentNode, struct RBNode * const leftChild);
+void makeRightChildOf(struct RBNode * const parentNode, struct RBNode * const rightChild);
+void makeParentOf(struct RBNode * const childNode, struct RBNode * const parentNode);
 
-void makeRightChildOf(struct RBNode * const parentNode, struct RBNode * const rightChild){
-  if(notNull(parentNode)) parentNode->right = rightChild;
-}
-
-
-void makeParentOf(struct RBNode * const childNode, struct RBNode * const parentNode){
-  if(notNull(childNode)) childNode->parent = parentNode;
-}
+struct RBNode *leftChildOf(struct RBNode *root);
+struct RBNode *rightChildOf(struct RBNode *root);
+struct RBNode *parentOf(struct RBNode * const root);
+struct RBNode *grandParentOf(struct RBNode * const root);
