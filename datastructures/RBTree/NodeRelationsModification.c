@@ -65,7 +65,8 @@ struct RBNode *rightChildReplacesTheParent(struct RBNode * const rbNode){
   }
   return rbNode;
 }
-
+//         Great Grand Parent             Great Grand Parent
+//              |                               |                     <----------- Check that the grandparent was left child or right Child
 //              G                               C
 //	       / \                            /   \
 //	      P   RG                         P     G
@@ -75,8 +76,38 @@ struct RBNode *rightChildReplacesTheParent(struct RBNode * const rbNode){
 //	      LC  RC
 //
 
-//extern struct RBNode *rightNodeReplacesTheGrandParent(struct RBNode * const rbNode);
+struct RBNode *rightGrandChildReplacesTheGrandParent(struct RBNode * const root){
+    if(notNull(root)){
+        struct RBNode * leftChild  = leftChildOf(root);
+	struct RBNode * rightChild = rightChildOf(root);
+        
+	struct RBNode * parent      = parentOf(root);
+	struct RBNode * grandParent = grandParentOf(root);
+	struct RBNode * greatGrandParent = parentOf(grandParent); 
 
+	makeParentOf(root,        greatGrandParent);
+	if(isLeftChildOf(greatGrandParent, grandParent)) 
+	    makeLeftChildOf(greatGrandParent, root);
+	else 
+	    makeRightChildOf(greatGrandParent, root);
+
+	makeParentOf(grandParent,  root);
+	makeRightChildOf(root,     grandParent);
+
+	makeParentOf(parent,      root);
+	makeLeftChildOf(root,     parent);
+
+	makeLeftChildOf(grandParent,  rightChild);
+	makeParentOf(rightChild,      grandParent);
+
+	makeRightChildOf(parent,    leftChild);
+	makeParentOf(leftChild,     parent);
+    }
+}
+
+//
+//         Great Grand Parent             Great Grand Parent
+//             |                                 |                      <----------- Check that the grandparent was left child or right Child
 //             G                                 C
 //           /  \                              /   \
 //          LG   P            =>              G     P
@@ -87,9 +118,32 @@ struct RBNode *rightChildReplacesTheParent(struct RBNode * const rbNode){
 //
 //
 
-struct RBNode *leftNodeReplacesTheGrandParent(struct RBNode * const rbNode){
-    if(notNull(rbNode)){
-        struct leftChildOf
+struct RBNode *leftGrandChildReplacesTheGrandParent(struct RBNode * const root){
+    if(notNull(root)){
+        struct RBNode * leftChild  = leftChildOf(root);
+	struct RBNode * rightChild = rightChildOf(root);
+        
+	struct RBNode * parent      = parentOf(root);
+	struct RBNode * grandParent = grandParentOf(root);
+	struct RBNode * greatGrandParent = parentOf(grandParent); 
+
+	makeParentOf(root,        greatGrandParent);
+	if(isLeftChildOf(greatGrandParent, grandParent)) 
+	    makeLeftChildOf(greatGrandParent, root);
+	else 
+	    makeRightChildOf(greatGrandParent, root);
+
+	makeParentOf(grandParent, root);
+	makeLeftChildOf(root,     grandParent);
+
+	makeParentOf(parent,      root);
+	makeRightChildOf(root,    parent);
+
+	makeRightChildOf(grandParent, leftChild);
+	makeParentOf(leftChild,       grandParent);
+
+	makeLeftChildOf(parent,       rightChild);
+	makeParentOf(rightChild,      parent);
     }
 }
 
