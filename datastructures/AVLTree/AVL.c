@@ -21,8 +21,14 @@ struct AVLNode *newAVLNode(int const data){
 }
 
 void printAVLNode(struct AVLNode *const root){
-    if(notNull(root)) 
-      printf("{DATA : %d, Height : %d, Balance Factor : %d}\n", root->data, root->height, balanceFactorOfAVLNode(root));
+    if(notNull(root)) printf("{"
+    	                        " DATA : %d," 
+                                " Height : %d," 
+			        " Balance Factor : %d" 
+			     " }\n", 
+			     root->data, 
+			     root->height, 
+			     balanceFactorOfAVLNode(root));
 }
 
 static void printAVLTreeWithIndentation(struct AVLNode * const root, char const seperator, char const repeater){
@@ -31,14 +37,16 @@ static void printAVLTreeWithIndentation(struct AVLNode * const root, char const 
 
       for(int i = 0; i < repeater; ++i) printf("%c", seperator);
 
-      printf(">"); printAVLNode(root);
+      printf(">"); 
+      printAVLNode(root);
 
       printAVLTreeWithIndentation(root->right, seperator, repeater + 2);
     }
 
 }
 void printAVLTree(struct AVLNode * const root){
-    printf("\n"); printAVLTreeWithIndentation(root, '-', 0);
+    printf("\n"); 
+    printAVLTreeWithIndentation(root, '-', 0);
 }
 
 inline int heightOfAVLNode(struct AVLNode * const root){
@@ -60,35 +68,39 @@ int updateHeight(struct AVLNode * const root){
 int balanceFactorOfAVLNode(struct AVLNode * const root){
     return null(root) ? 0 : heightOfAVLNode(root->left) - heightOfAVLNode(root->right);
 }
+
 struct AVLNode *rotateRight(struct AVLNode * const root){
-    if(null(root)) return NULL;
+    if(notNull(root)) {
 
-    struct AVLNode * const leftChild        = root->left;
-    struct AVLNode * const rightOfLeftChild = leftChild->right; 
+        struct AVLNode * const leftChild        = root->left;
+        struct AVLNode * const rightOfLeftChild = leftChild->right; 
 
-    leftChild->right = root;
-    root->left       = rightOfLeftChild;
-    
-    updateHeight(root);
-    updateHeight(leftChild);
+        leftChild->right = root;
+        root->left       = rightOfLeftChild;
+        
+        updateHeight(root);
+        updateHeight(leftChild);
 
-    return leftChild;
+        return leftChild;
+    }
+    return root;
 }
 
 struct AVLNode *rotateLeft(struct AVLNode * const root){
-    if(null(root)) return NULL;
-    
-    struct AVLNode *rightChild         =   root->right;
-    struct AVLNode *leftOfRightChild   =   rightChild->left;
+    if(notNull(root)) {
+        struct AVLNode *rightChild         =   root->right;
+        struct AVLNode *leftOfRightChild   =   rightChild->left;
 
-    rightChild->left = root;
-    root->right      = leftOfRightChild;
+        rightChild->left = root;
+        root->right      = leftOfRightChild;
 
-    //Update Sequence is important
-    updateHeight(root);
-    updateHeight(rightChild);
-    
-    return rightChild;
+        //Update Sequence is important
+        updateHeight(root);
+        updateHeight(rightChild);
+        
+        return rightChild;
+    }
+    return root;
 }
 struct AVLNode *insert(struct AVLNode *root, int const data){
     if(null(root)) return newAVLNode(data);
@@ -102,6 +114,7 @@ struct AVLNode *insert(struct AVLNode *root, int const data){
     }
 
     updateHeight(root);
+
     int const rootBalanceFactor = balanceFactorOfAVLNode(root);
 
     if(rootBalanceFactor > 1) {
@@ -125,7 +138,8 @@ struct AVLNode *deleteAVLNode(struct AVLNode * root, int const data){
     } else {
 	//Leaf Node 
         if(null(root->left) && null(root->right)){
-	    free(root); return NULL;
+	    free(root); 
+	    return NULL;
 	} else if(null(root->left) || null(root->right)){
 	    struct AVLNode * temp = null(root->right) ? root->left : root->right;
 	    free(root);
@@ -141,6 +155,7 @@ struct AVLNode *deleteAVLNode(struct AVLNode * root, int const data){
     }
 
     updateHeight(root);
+
     int balanceFactorOfRoot = balanceFactorOfAVLNode(root);
 
     if(1 < balanceFactorOfRoot) {

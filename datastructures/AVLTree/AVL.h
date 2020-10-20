@@ -34,5 +34,10 @@ extern void printAVLTree(struct AVLNode * const);
 extern void printAVLNode(struct AVLNode * const);
 
 //Conditions
-extern bool null(void * const anyObject);
-extern bool notNull(void * const anyObject);
+inline bool null(void * const anyObject){
+  return anyObject == NULL;
+}
+
+inline bool notNull(void * const anyObject){
+  return anyObject != NULL;
+}
