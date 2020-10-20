@@ -50,7 +50,7 @@ void insert(struct BTreeNode * const head, int const data){
         struct BTreeNode *currNode    = head;
         struct BTreeNode *prevNode    = NULL;
 
-        while(currNode && currNode->data != data){
+        while(currNode){ 
 
             prevNode = currNode;
 
@@ -58,17 +58,17 @@ void insert(struct BTreeNode * const head, int const data){
                 currNode = currNode->right;
             } else if(data < currNode->data){
                 currNode = currNode->left;
-            }
+            } else {
+		//found the data is already there, so, return from here
+	        return;
+	    }
         }
         
-        //we are trying to add duplicate data
-        if(currNode != NULL) return;
-
         struct BTreeNode *nodeNew  = newNode(data);
-        if(!prevNode->left)
-	    prevNode->left  = nodeNew;
+        if(prevNode->left)
+	    prevNode->right = nodeNew;
         else
-            prevNode->right = nodeNew;
+            prevNode->left  = nodeNew;
 
     }
 }
