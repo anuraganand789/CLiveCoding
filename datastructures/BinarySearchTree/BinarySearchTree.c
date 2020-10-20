@@ -13,13 +13,16 @@ struct BTree{
 };
 
 void inorder(struct BTreeNode *head, int const noOfSeparator){
-    if(NULL == head) return;
+    if(head){
+        inorder(head->left, noOfSeparator + 2); 
 
-    inorder(head->left, noOfSeparator + 2); 
-    printf("\n");
-    for(int i = 0; i < noOfSeparator; ++i) printf("-");
-    printf("%d", head->data);
-    inorder(head->right, noOfSeparator + 2);
+        printf("\n");
+        for(int i = 0; i < noOfSeparator; ++i) printf("-");
+        printf("%d", head->data);
+
+        inorder(head->right, noOfSeparator + 2);
+    }
+
 }
 
 struct BTreeNode *newNode(int const data){
@@ -31,68 +34,67 @@ struct BTreeNode *newNode(int const data){
 
 //recursive function
 struct BTreeNode *insertInBTree(struct BTreeNode *root, int const data){
-    if(NULL == root) return newNode(data);
-
-    if(data == root->data) return root;
-
-    if(data > root->data) root->right = insertInBTree(root->right, data);
-    else                  root->left  = insertInBTree(root->left,  data);
-
-    return root;
+    if(root) {
+	if(root->data > data)
+	    root->left = insertInBTree(root->left, data);
+        else if(root->data < data)
+	    root->right = insertInBTree(root->right, data);
+	
+	return root;
+    } 
+    return newNode(data); 
 }
 
 void insert(struct BTreeNode * const head, int const data){
-    if(NULL == head) return;
+    if(head){
+        struct BTreeNode *currNode    = head;
+        struct BTreeNode *prevNode    = NULL;
 
-    bool nodeAddedToRight         = false;
-    struct BTreeNode *currNode    = head;
-    struct BTreeNode *prevNode    = head;
+        while(currNode && currNode->data != data){
 
-    while(NULL != currNode){
-        if(data == currNode->data) return;
-	prevNode = currNode;
-	if(data > currNode->data) {
-	    nodeAddedToRight = true;
-	    currNode = currNode->right;
-	} else {
-	    nodeAddedToRight = false;
-	    currNode = currNode->left;
-	}
+            prevNode = currNode;
+
+            if(data > currNode->data) {
+                currNode = currNode->right;
+            } else if(data < currNode->data){
+                currNode = currNode->left;
+            }
+        }
+        
+        //we are trying to add duplicate data
+        if(currNode != NULL) return;
+
+        struct BTreeNode *nodeNew  = newNode(data);
+        if(!prevNode->left)
+	    prevNode->left  = nodeNew;
+        else
+            prevNode->right = nodeNew;
+
     }
-    
-    struct BTreeNode *nodeNew  = newNode(data);
-    if(nodeAddedToRight) prevNode->right = nodeNew;
-    else                 prevNode->left  = nodeNew;
-
 }
 
 struct BTreeNode *search(struct BTreeNode * const head, int const data){
-    if(NULL == head || data == head->data) return head;
-
-    struct BTreeNode *currNode = head;
-    while(NULL != currNode && data != currNode->data){
-        currNode = data < currNode->data ? currNode->left : currNode->right;
+    struct BTreeNode *foundNode;
+    if(foundNode = head){
+	while(foundNode && foundNode->data != data) 
+	    foundNode = foundNode->data > data ? foundNode->left : foundNode->right;
     }
-
-    return currNode;
+    return foundNode;
 }
 
 struct BTreeNode *maxValueInTheLeftTree(struct BTreeNode * const root){
-    if(NULL == root) return NULL;
-
-    struct BTreeNode *nodeIterator = root->left;
-    while(NULL != nodeIterator && NULL != nodeIterator->right) 
-        nodeIterator = nodeIterator->right;
+    struct BTreeNode * maxNode;
+    if((maxNode = root) && (maxNode = root->left))
+        while(maxNode->right) maxNode = maxNode->right;
     
-    return nodeIterator;
+    return maxNode;
 }
 
 struct BTreeNode *minValueInTheRightTree(struct BTreeNode * const root){
-    if(NULL == root) return NULL;
-
-    struct BTreeNode *nodeIterator = root->right;
-    while(NULL != nodeIterator && NULL != nodeIterator->left) 
-        nodeIterator = nodeIterator->left;
+    struct BTreeNode *nodeIterator;
+    if((nodeIterator = root) && (nodeIterator = root->right)) {
+        while(nodeIterator && (nodeIterator = nodeIterator->left));
+    }
 
     return nodeIterator;
 }
