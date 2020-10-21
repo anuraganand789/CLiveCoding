@@ -12,7 +12,7 @@ struct Queue {
 };
 
 //Create Stack - Allocate Memory for stack
-extern struct Queue *createQueue(int *capacity);
+extern struct Queue *createQueue(int capacity);
 
 //Free Memory - Delete Queue from memory
 extern void deleteQueue(struct Queue *queue);

@@ -1,11 +1,11 @@
 #include "Queue.h"
 
 //Creation is done
-struct Queue *createQueue(int *capacity){
-    struct Queue *queue = (struct Queue *) malloc((sizeof *queue) + (sizeof(int) * *capacity));
+struct Queue *createQueue(int capacity){
+    struct Queue *queue = (struct Queue *) malloc((sizeof *queue) + (sizeof(int) * capacity));
 
     queue->frontIndex  = queue->rearIndex = -1; 
-    queue->maxCapacity = *capacity; 
+    queue->maxCapacity = capacity; 
 
     return queue;
 }
@@ -81,7 +81,7 @@ void printQueue(struct Queue *queue){
 
 void main(){
     int capacity = 4;
-    struct Queue *queue = createQueue(&capacity);
+    struct Queue *queue = createQueue(capacity);
     if(queue != NULL) printf("Queue Created.\n");
      
      printIndices(queue);
