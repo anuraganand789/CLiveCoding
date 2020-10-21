@@ -2,21 +2,17 @@
 
 //Creation is done
 struct Queue *createQueue(int *capacity){
-    struct Queue *queue;
-    queue = (struct Queue *) malloc((sizeof *queue) + (sizeof(int) * *capacity));
+    struct Queue *queue = (struct Queue *) malloc((sizeof *queue) + (sizeof(int) * *capacity));
 
-    if(queue != NULL) {
-       queue->frontIndex = queue->rearIndex = -1; 
-       queue->maxCapacity = *capacity; 
-    }
+    queue->frontIndex  = queue->rearIndex = -1; 
+    queue->maxCapacity = *capacity; 
 
     return queue;
 }
 
 //Deletion of Queue
 void deleteQueue(struct Queue *queue){
-    if(queue == NULL) return;
-    free(queue);
+    if(queue) free(queue);
 }
 
 int numberOfItemsInQueue(struct Queue *queue){
@@ -28,11 +24,11 @@ int numberOfItemsInQueue(struct Queue *queue){
 }
 //Check Status
 bool isQueueFull(struct Queue *queue){
-    return queue == NULL || numberOfItemsInQueue(queue) == queue->maxCapacity;
+    return !queue || numberOfItemsInQueue(queue) == queue->maxCapacity;
 }
 
 bool isQueueEmpty(struct Queue *queue){
-    return queue == NULL || queue->frontIndex < 0;
+    return !queue || queue->frontIndex < 0;
 }
 
 //Data modifications
@@ -61,7 +57,7 @@ int removeFromQueue(struct Queue *queue){
 }
 
 void printIndices(struct Queue *queue){
-    if(queue != NULL) printf("Front Index %d, Rear Index %d.\n", queue->frontIndex, queue->rearIndex);
+    if(queue) printf("Front Index %d, Rear Index %d.\n", queue->frontIndex, queue->rearIndex);
 }
 
 void printQueue(struct Queue *queue){
