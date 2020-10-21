@@ -2,86 +2,75 @@
 
 //View
  void display(struct Node *head){
-    while(head != null){
+    while(head){
         printf("%d ", head->data);
         head  =  head->next;
     }
     printf("\n");
 }
 
-//Creation
- struct Node *allocateNode(){
-    return (struct Node *) malloc(sizeof(struct Node));
-}
-
 //Deletion
  void freeLinkedList(struct Node *node){
-    if(node == NULL) return;
-    struct Node *next = NULL; 
-    struct Node *curr = node;
+    if(node){
+        struct Node *next; 
+        struct Node *curr = node;
 
-    while(curr != NULL) {
-        next = curr->next;
-	free(curr);
-	curr = next;
+	for(curr = node; 
+	    curr; 
+	    next = curr->next, curr = next) 
+	    { 
+	        free(curr); 
+            }
     }
 }
 
 //Search 
  struct Node *search(struct Node *node, int *data){
-    while(node != NULL && node->data != *data) node = node->next;
+    while(node && node->data != *data && (node = node->next));
     return node;
 }
 
 //modification
  struct Node *createNode(int *data){
-   struct Node *node = allocateNode();
+   struct Node *node = (struct Node *) malloc(sizeof(struct Node));
    node->data = *data;
    node->next = NULL;
    return node;
 }
 
  bool insert(struct Node *node, int *data){
-   if(node == NULL) return false;
-   //Find The last node
-   while(node->next != NULL) node = node->next;
-   //we are the last node 
+   if(node) while(node->next) node = node->next;
+
    node->next  = createNode(data);
 }
 
  struct Node *deleteByData(struct Node *node, int *data){
-   if(node == NULL) return NULL;
+   struct Node *prev = NULL;
+   struct Node *curr = node;
 
-   //stores links to nodes - used for changing node->next link
-   //After the node is found and deleted
-   struct Node *temp = NULL;
-   //find the matching node
-   while(node != NULL && node->data != *data){
-       temp = node;
-       node = node->next;
-   }
+   if(curr){
+       while(curr && curr->data != *data){
+           curr = (prev = curr)->next;
+       }
 
-   //data not found
-   if(node == NULL) return NULL;
+       if(prev)
+           prev->next = curr->next;
+       else
+           prev = curr->next;
+       
+       free(curr);
+    }
 
-   //Store the node next to the node getting deleted 
-   if(temp != NULL) temp->next = node->next;
-   //check NULL - case where data occurs as the first node
-   else temp = node->next;
-
-   node->next = NULL;
-   free(node);
-
-   return temp;
+    //either node argument value is NULL or data is not present in the Linked List
+   return prev;
 }
 
  struct Node *reverseLinkedList(struct Node *node){
-     if(node == NULL) return node;
-     struct Node *me       = node;
-     struct Node *behindMe = NULL;
+     struct Node *me          = node;
+     struct Node *behindMe    = NULL;
      struct Node *inFrontOfMe = NULL;
 
-     while(me != NULL){
+     while(me){
          inFrontOfMe = me->next;    
 	 me->next = behindMe;
 	 behindMe = me;

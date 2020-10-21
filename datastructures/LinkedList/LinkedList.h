@@ -9,8 +9,6 @@ struct Node {
     struct Node *next;
 };
 
-//Creation
- struct Node *allocateNode();
 //Destruction
  void freeLinkedList(struct Node *node);
 
