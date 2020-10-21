@@ -13,7 +13,7 @@
  void freeLinkedList(struct Node *node){
     if(node){
         struct Node *next; 
-        struct Node *curr = node;
+        struct Node *curr;
 
 	for(curr = node; 
 	    curr; 
