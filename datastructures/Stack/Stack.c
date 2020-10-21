@@ -4,8 +4,7 @@
 struct Stack *createStack(int *capacity){
     if(*capacity < 1) return NULL;
     
-    struct Stack *stack = (struct Stack *) 
-                                   malloc(sizeof(struct Stack));
+    struct Stack *stack = (struct Stack *) malloc(sizeof(struct Stack));
     stack->top      = -1;
     stack->capacity = *capacity;
     stack->data     = (int *) malloc(sizeof(int) * *capacity);
@@ -15,11 +14,10 @@ struct Stack *createStack(int *capacity){
 
 //Deletion
 int deleteStack(struct Stack *stack){
-    if(stack == NULL) return EOF;
-
-    if(stack->data != NULL) free(stack->data);
-
-    free(stack);
+    if(stack) {
+        if(stack->data) free(stack->data);
+        free(stack);
+    }
 }
 
 #define isStackFull(stack)     ((stack != NULL && (stack->top + 1) == stack->capacity))
