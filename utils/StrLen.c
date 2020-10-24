@@ -3,10 +3,12 @@
 
 //Implementation 1
 int strlenImpl_1(char * restrict string){
-    if(NULL == string) return -1;
-    int length = 0; 
-    while('\0' != *string++) ++length;
-    return length;
+    if(string){
+        unsigned int length = 0; 
+        while(*string++) ++length;
+        return length;
+    }
+    return -1;
 }
 
 //Implementation 2
