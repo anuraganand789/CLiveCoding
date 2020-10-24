@@ -3,71 +3,78 @@
 #include<string.h>
 
 char * strcpyImpl_1(char * restrict destinationString, char * restrict sourceString){
-    if(NULL == destinationString || NULL == sourceString) return NULL;
-    int const destinationStringLength = strlen(destinationString);
-    int const sourceStringLength      = strlen(sourceString);
+    if(destinationString && sourceString){
+        int const destinationStringLength = strlen(destinationString);
+        int const sourceStringLength      = strlen(sourceString);
 
-    if(destinationStringLength < sourceStringLength) return NULL;
-    
-    char * newString = (char *) malloc(sizeof(char) * (destinationStringLength + 1));
-    int i = 0;
-    //Copy source string
-    for(;i < destinationStringLength && i < sourceStringLength; ++i) 
-        newString[i] = sourceString[i];
+	if(destinationStringLength >= sourceStringLength){
+            char * newString = (char *) malloc(sizeof(char) * (destinationStringLength + 1));
+            int i = 0;
+            //Copy source string
+            for(;i < destinationStringLength && i < sourceStringLength; ++i) 
+                newString[i] = sourceString[i];
 
-    --i;
-    //Copy remanis of destination string
-    while(i <= destinationStringLength) {
-	printf("copying Char %c -- from dest to new string \n", destinationString[i]);
-        newString[i] = destinationString[i++];
-	printf("copied Char %c -- from dest to new string \n", newString[i]);
+            --i;
+
+            //Copy remanis of destination string
+            while(destinationStringLength > i){
+                newString[i] = destinationString[i++];
+            }
+
+            newString[destinationStringLength] = '\0';
+
+            return newString;
+	}
+        
     }
 
-    newString[destinationStringLength] = '\0';
-
-    return newString;
+    return NULL;
 }
 
 char * strcpyImpl_2(char * restrict destinationString, char * restrict sourceString){
-    if(NULL == destinationString || NULL == sourceString) return NULL;
-    int const destinationStringLength = strlen(destinationString);
-    int const sourceStringLength      = strlen(sourceString);
+    if(destinationString && sourceString){
+        int const destinationStringLength = strlen(destinationString);
+        int const sourceStringLength      = strlen(sourceString);
 
-    if(destinationStringLength < sourceStringLength) return NULL;
-    
-    char * newString = (char *) malloc(sizeof(char) * (destinationStringLength + 1));
-    
-    char * charIterator = newString;
-    while((*charIterator++ = *sourceString++) != '\0');
+	if(destinationStringLength >= sourceStringLength) {
+            char * newString = (char *) malloc(sizeof(char) * (destinationStringLength + 1));
+            
+            char * charIterator = newString;
+            while((*charIterator++ = *sourceString++));
 
-    int i = sourceStringLength;
-    for(; i < destinationStringLength; ++i){ newString[i] = destinationString[i]; }
+            for(int i = sourceStringLength; i < destinationStringLength; ++i){ newString[i] = destinationString[i]; }
 
-    newString[destinationStringLength] = '\0';
+            newString[destinationStringLength] = '\0';
 
-    return newString;
+            return newString;
+	}
+        
+    }
+    return NULL;
 }
 
 char * strcpyImpl_3(char * restrict destinationString, char * restrict sourceString){
-    if(NULL == destinationString || NULL == sourceString) return NULL;
-    int const destinationStringLength = strlen(destinationString);
-    int const sourceStringLength      = strlen(sourceString);
+    if(destinationString && sourceString){
+        int const destinationStringLength = strlen(destinationString);
+        int const sourceStringLength      = strlen(sourceString);
 
-    if(destinationStringLength < sourceStringLength) return NULL;
-    
-    char * newString = (char *) malloc(sizeof(char) * (destinationStringLength + 1));
-    char * charIterator = newString;
-    //copy the destination string
-    while((*charIterator++ = *destinationString++) != '\0');
+	if(destinationStringLength >= sourceStringLength) {
+            char * newString = (char *) malloc(sizeof(char) * (destinationStringLength + 1));
+            char * charIterator = newString;
+            //copy the destination string
+            while((*charIterator++ = *destinationString++));
 
-    charIterator = newString;
-    //copy the source string
-    while((*charIterator++ = *sourceString++) != '\0');
-    
-    //remove null value put by source string
-    if(destinationStringLength > sourceStringLength) newString[sourceStringLength] = destinationString[sourceStringLength];
+            charIterator = newString;
+            //copy the source string
+            while((*charIterator++ = *sourceString++));
+            
+            //remove null value put by source string
+            if(destinationStringLength > sourceStringLength) newString[sourceStringLength] = destinationString[sourceStringLength];
 
-    return newString;
+            return newString;
+	}
+    }
+    return NULL;
 }
 
 int main(int argc, char ** const argv){
