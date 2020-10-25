@@ -18,7 +18,7 @@ inline bool notNull(struct RBNode * const rbNode)    { return rbNode != NULL; }
 
 //Relations 
 inline struct RBNode *parentOf(struct RBNode * const root) { 
-    return notNull(root) ? root->parent : NULL; 
+    return root ? root->parent : NULL; 
 }
 inline struct RBNode *grandParentOf(struct RBNode * const root) { 
     return parentOf(parentOf(root)); 
@@ -57,16 +57,16 @@ extern struct RBNode *siblingOf(struct RBNode * const root);
 //Set Relations
 
 inline void makeParentOf(struct RBNode * const childNode, struct RBNode * const parentNode){
-  if(notNull(childNode)) childNode->parent = parentNode;
+  if(childNode) childNode->parent = parentNode;
 }
 
 //These functions modify the parent child relations
 inline void makeLeftChildOf(struct RBNode * const parentNode, struct RBNode * const leftChild){
-  if(notNull(parentNode)) parentNode->left = leftChild;
+  if(parentNode) parentNode->left = leftChild;
 }
 
 inline void makeRightChildOf(struct RBNode * const parentNode, struct RBNode * const rightChild){
-  if(notNull(parentNode)) parentNode->right = rightChild;
+  if(parentNode) parentNode->right = rightChild;
 }
 
 //Rotations or Node Relation Modification
@@ -75,4 +75,11 @@ extern struct RBNode *rightGrandChildReplacesTheGrandParent(struct RBNode * cons
 
 extern struct RBNode *leftChildReplacesTheParent(struct RBNode * const rbNode);
 extern struct RBNode *rightChildReplacesTheParent(struct RBNode * const rbNode);
+
+extern struct RBNode *leftChildParentReplacesTheGrandParent(struct RBNode * const rbNode);
+extern struct RBNode *rightChildParentReplacesTheGrandParent(struct RBNode * const rbNode);
+
+//Operations On Nodes
+extern struct RBNode *insertRBNode(struct RBNode * const root, int const value);
+extern struct RBNode *deleteRBNode(struct RBNode * const root, int const value);
 

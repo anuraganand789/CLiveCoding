@@ -1,5 +1,79 @@
 #include "RB.h"
 
+//                 G                          P
+//                / \                     /      \
+//               P   RG     =>           C        G
+//              / \                     / \      / \
+//             C   RP                  LC  RC   RP RG
+//            / \
+//           LC  RC
+
+struct RBNode *leftChildParentReplacesTheGrandParent(struct RBNode * const rbNode){
+    if(rbNode){
+        struct RBNode * parent = parentOf(rbNode);
+	if(parent){
+            struct RBNode * grandParent = parentOf(parent);
+	    if(grandParent){
+	        struct RBNode * sibling          = siblingOf(rbNode);
+                struct RBNode * greatGrandParent = parentOf(grandParent);
+
+	        //now parent is child of great grandparent
+                if(greatGrandParent){
+	            if(grandParent == greatGrandParent->left) 
+	                { greatGrandParent->left = parent; }
+	            else
+	                { greatGrandParent->right = parent; }
+
+	        }
+	        //now greatGrandparent becomes grandparent
+	        makeParentOf(parent, greatGrandParent);
+
+		makeParentOf(grandParent, parent);
+	        makeRightChildOf(parent, grandParent);
+	        makeLeftChildOf(grandParent, sibling);
+                
+	        return parent;
+	    }
+	}
+    }
+
+    return rbNode;
+}
+
+
+//                G                           P
+//               / \                        /  \
+//		LG  P       =>             G    C
+//		   / \                    / \
+//		  LP  C                  LG  LP
+struct RBNode *rightChildParentReplacesTheGrandParent(struct RBNode * const rbNode){
+    if(rbNode){
+        struct RBNode * parent = parentOf(rbNode);
+        if(parent){
+	    struct RBNode * grandParent = parentOf(parent);
+	    if(grandParent){
+		struct RBNode * sibling = siblingOf(rbNode);
+	        struct RBNode * greatGrandParent = parentOf(grandParent);
+
+		if(greatGrandParent){
+		    if(isLeftChildOf(greatGrandParent, grandParent))
+		        { makeLeftChildOf(greatGrandParent, grandParent); }
+		    else 
+		        { makeRightChildOf(greatGrandParent, grandParent); }
+		}
+                makeParentOf(parent, greatGrandParent);
+
+		makeParentOf(grandParent, parent);
+		makeLeftChildOf(parent, grandParent);
+		makeLeftChildOf(grandParent, sibling);
+	    }
+
+	}
+    }
+
+    return rbNode;
+}
+
 //         P                                       C
 //       /  \                                    /   \
 //      C   RP      ===========>               LC     P
