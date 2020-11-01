@@ -2,17 +2,15 @@
 #include<stdbool.h>
 #include<stdlib.h>
 
-bool isOperator(char *ch){
+inline static bool isOperator(char *ch){
     return *ch == '/' || *ch == '*' || *ch == '-' || *ch == '+';
 }
 
 int precedence(char *ch){
     switch(*ch){
-        default : return -1;
-	case '-':
-	case '+': return 1;
-	case '/':
-	case '*': return 2;
+	case '-' : case '+' : return 1;
+	case '/' : case '*' : return 2;
+        default  : return -1;
     }
 }
 
@@ -21,10 +19,11 @@ void main(int argc, char **argv){
     printf("%s ->", expression);
 
     unsigned char expressionLength = -1;
-    unsigned char countOfOperators = 0;
+    unsigned char countOfOperators =  0;
+
     for(; *expression != '\0'; ++expression) {
        ++expressionLength;
-       if(isOperator(expression)) ++countOfOperators;
+       if(isOperator(expression)) { ++countOfOperators; }
     }
     
     //reverse the expression
@@ -33,9 +32,10 @@ void main(int argc, char **argv){
     unsigned char rightChar = expressionLength;
 
     expression = *argv;
+
     while(leftChar < rightChar){
         tempCharHolder = *(expression + leftChar);
-	*(expression + leftChar) = *(expression + rightChar);
+	*(expression + leftChar)  = *(expression + rightChar);
 	*(expression + rightChar) = tempCharHolder;
 	++leftChar;
 	--rightChar;
@@ -48,17 +48,20 @@ void main(int argc, char **argv){
     char prefixLocation = expressionLength;
 
     for(; *expression != '\0'; ++expression){
-        if(!isOperator(expression)) *(prefix + prefixLocation--) = *expression;
-	else{
-	    while(topOfStack > -1 
-	        && precedence(expression) <= precedence(stackOfOperators + topOfStack))
+        if(!isOperator(expression)) { 
+	    *(prefix + prefixLocation--) = *expression; 
+	} else {
+	    while(topOfStack > -1 && precedence(expression) <= precedence(stackOfOperators + topOfStack)) {
 	            *(prefix + prefixLocation--) = *(stackOfOperators + topOfStack--);
+            }
 	    
 	    *(stackOfOperators + ++topOfStack) = *expression;
 	}
     }
 
-    while(topOfStack > -1) *(prefix + prefixLocation--) = *(stackOfOperators + topOfStack--);
+    while(topOfStack > -1) { 
+        *(prefix + prefixLocation--) = *(stackOfOperators + topOfStack--); 
+    }
 
     printf(" %s.\n", prefix);
 }

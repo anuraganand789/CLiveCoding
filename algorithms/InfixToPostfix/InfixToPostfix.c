@@ -18,9 +18,11 @@ void main(int argc, char **argv){
 
     expression = *argv;
     while(*expression != '\0'){
-        if(precedence(expression) < 0) printf("%c", *expression);
+        if(precedence(expression) < 0) { printf("%c", *expression); }
 	else{
-	   while(top != -1 && precedence(stackOfOperators + top) > precedence(expression)) printf("%c", *(stackOfOperators + top--));
+	   while(top != -1 && precedence(stackOfOperators + top) > precedence(expression)) 
+	       { printf("%c", *(stackOfOperators + top--)); }
+
 	   *(stackOfOperators + ++top) = *expression;
 	}
 	++expression;
@@ -35,12 +37,8 @@ void main(int argc, char **argv){
 
 int_least8_t precedence(char *operator){
     switch(*operator){
-    case '-':
-    case '+':
-              return 1;
-    case '*':
-    case '/':
-              return 2;
+    case '-': case '+': return 1;
+    case '*': case '/': return 2;
     default : return -1;
     }
 }
