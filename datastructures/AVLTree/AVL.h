@@ -32,12 +32,3 @@ extern int max(int const, int const);
 //Log and debug
 extern void printAVLTree(struct AVLNode * const);
 extern void printAVLNode(struct AVLNode * const);
-
-//Conditions
-inline bool null(void * const anyObject){
-  return anyObject == NULL;
-}
-
-inline bool notNull(void * const anyObject){
-  return anyObject != NULL;
-}

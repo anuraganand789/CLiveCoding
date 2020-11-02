@@ -21,24 +21,23 @@ struct AVLNode *newAVLNode(int const data){
 }
 
 void printAVLNode(struct AVLNode *const root){
-    if(root) printf("{"
-    	                        " DATA : %d," 
-                                " Height : %d," 
-			        " Balance Factor : %d" 
-			     " }\n", 
-			     root->data, 
-			     root->height, 
-			     balanceFactorOfAVLNode(root));
+    if(root) printf(  "{"
+                      " DATA : %d," 
+                      " Height : %d," 
+        	      " Balance Factor : %d" 
+		      " }\n", 
+		      root->data, 
+		      root->height, 
+		      balanceFactorOfAVLNode(root));
 }
 
 static void printAVLTreeWithIndentation(struct AVLNode * const root, char const seperator, char const repeater){
     if(root) {
       printAVLTreeWithIndentation(root->left, seperator, repeater + 2);
 
-      for(int i = 0; i < repeater; ++i) printf("%c", seperator);
+      for(int i = 0; i < repeater; ++i) { printf("%c", seperator); }
 
-      printf(">"); 
-      printAVLNode(root);
+      printf(">"); printAVLNode(root);
 
       printAVLTreeWithIndentation(root->right, seperator, repeater + 2);
     }
@@ -50,7 +49,7 @@ void printAVLTree(struct AVLNode * const root){
 }
 
 inline int heightOfAVLNode(struct AVLNode * const root){
-    return null(root) ? 0 : root->height;
+    return root ? root->height : 0;
 }
 
 inline int max(int const numberOne, int const numberTwo){
@@ -58,15 +57,15 @@ inline int max(int const numberOne, int const numberTwo){
 }
 
 int updateHeight(struct AVLNode * const root){
-    if(null(root)) return 0;
-
-    root->height =  1 + max(heightOfAVLNode(root->left), heightOfAVLNode(root->right));
-
-    return root->height;
+    if(root){
+        root->height =  1 + max(heightOfAVLNode(root->left), heightOfAVLNode(root->right));
+        return root->height;
+    }
+    return 0;
 }
 
 int balanceFactorOfAVLNode(struct AVLNode * const root){
-    return null(root) ? 0 : heightOfAVLNode(root->left) - heightOfAVLNode(root->right);
+    return root ? heightOfAVLNode(root->left) - heightOfAVLNode(root->right) : 0;
 }
 
 struct AVLNode *rotateRight(struct AVLNode * const root){
@@ -129,6 +128,9 @@ struct AVLNode *insert(struct AVLNode *root, int const data){
 
     return newAVLNode(data);
 }
+static struct AVLNode * orElse(struct AVLNode * firstChoice, struct AVLNode * secondChoice){
+    return firstChoice ? firstChoice : secondChoice;
+}
 
 struct AVLNode *deleteAVLNode(struct AVLNode * root, int const data){
     if(root){
@@ -138,17 +140,17 @@ struct AVLNode *deleteAVLNode(struct AVLNode * root, int const data){
             root->right = deleteAVLNode(root->right, data);
         } else {
             //Leaf Node 
-            if(null(root->left) && null(root->right)){
+            if(!(root->left || root->right)){
                 free(root); 
                 return NULL;
-            } else if(null(root->left) || null(root->right)){
-                struct AVLNode * temp = null(root->right) ? root->left : root->right;
+            } else if(root->left == NULL ^ root->right == NULL){
+                struct AVLNode * temp = orElse(root->right, root->left);
                 free(root);
                 root = temp;
             } else{
                 struct AVLNode * temp = root->left;
                 //find the maximum value in the left subtree
-                while(notNull(temp->right)) temp = temp->right;
+                while(temp->right) temp = temp->right;
 
                 root->data = temp->data;
                 root->left = deleteAVLNode(root->left, temp->data);
@@ -162,14 +164,12 @@ struct AVLNode *deleteAVLNode(struct AVLNode * root, int const data){
         if(1 < balanceFactorOfRoot) {
              //if right subtree has an extra node then , right rotation will not balance the number of nodes
              //because that extra node is present in the right of the left node
-             if(balanceFactorOfAVLNode(root->left) < 0) 
-	         root->left = rotateLeft(root->left);
+             if(balanceFactorOfAVLNode(root->left) < 0) { root->left = rotateLeft(root->left); }
              root = rotateRight(root);
         } else if(balanceFactorOfRoot < -1) {
             //If the left subtree of the right node is heavy then the extra node needs to be moved to
             //the right subtree
-            if(balanceFactorOfAVLNode(root->right) > 0) 
-	        root->right = rotateRight(root->right);
+            if(balanceFactorOfAVLNode(root->right) > 0) { root->right = rotateRight(root->right); }
             root = rotateLeft(root);
         }
 
