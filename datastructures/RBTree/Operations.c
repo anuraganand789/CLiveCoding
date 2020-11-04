@@ -4,7 +4,9 @@ static struct RBNode * createNode(int const value){
     struct RBNode * newNode = (struct RBNode *) malloc(sizeof(struct RBNode));
     newNode->data = value;
     newNode->color = RED;
-    newNode->parent = newNode->left = newNode->right = NULL;
+    newNode->parent = NULL;
+    newNode->left = NULL;
+    newNode->right = NULL;
     return newNode;
 }
 
