@@ -64,7 +64,14 @@ struct RBNode *insertRBNode(struct RBNode * const root, int const insertValue){
 	newNode->parent = previousNode;
 
 	organizeTreeAfterInsertion(newNode);
-	return root;
+	//return the new parent
+	struct RBNode * parent = newNode;
+	{
+	    struct RBNode * prev;
+	    while(prev = parent->parent) parent = prev;
+	}
+
+	return parent;
     }
 
     return organizeTreeAfterInsertion(newNode);
