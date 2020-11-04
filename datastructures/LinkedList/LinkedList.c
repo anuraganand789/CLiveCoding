@@ -10,53 +10,48 @@
 }
 
 //Deletion
- void freeLinkedList(struct Node *node){
-    if(node){
-        struct Node *next; 
-        struct Node *curr;
-
-	for(curr = node; 
-	    curr; 
-	    next = curr->next, curr = next) 
-	    { 
-	        free(curr); 
-            }
+ void freeLinkedList(struct Node * const node){
+    struct Node * next = NULL;
+    struct Node * curr = node;
+    while(curr){
+        next = curr->next;
+        free(curr);
+        curr = next;
     }
 }
 
 //Search 
- struct Node *search(struct Node *node, int *data){
+ struct Node * search(struct Node * node, int * data){
     while(node && node->data != *data && (node = node->next));
     return node;
 }
 
 //modification
- struct Node *createNode(int *data){
-   struct Node *node = (struct Node *) malloc(sizeof(struct Node));
+ struct Node * createNode(int * data){
+   struct Node * node = (struct Node *) malloc(sizeof(struct Node));
    node->data = *data;
    node->next = NULL;
    return node;
 }
 
- bool insert(struct Node *node, int *data){
-   if(node) while(node->next) node = node->next;
-
-   node->next  = createNode(data);
+ bool insert(struct Node * node, int * data){
+   if(node) {
+       while(node->next) node = node->next;
+       node->next  = createNode(data);
+       return true;
+   }
+   return false;
 }
 
- struct Node *deleteByData(struct Node *node, int *data){
+struct Node * deleteByData(struct Node * node, int * data){
    struct Node *prev = NULL;
    struct Node *curr = node;
 
    if(curr){
-       while(curr && curr->data != *data){
-           curr = (prev = curr)->next;
-       }
+       while(curr && curr->data != *data){ curr = (prev = curr)->next; }
 
-       if(prev)
-           prev->next = curr->next;
-       else
-           prev = curr->next;
+       if(prev) { prev->next = curr->next; }
+       else { prev = curr->next; }
        
        free(curr);
     }
