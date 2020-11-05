@@ -8,7 +8,6 @@ void swap(int *data, int const firstIndex, int const secondIndex) {
 }
 
 void bubblesort(int *data, int const sizeOfArray) {
-    
     int j;
     int i = 0;
     bool swapped = false;

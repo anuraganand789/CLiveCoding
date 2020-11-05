@@ -1,16 +1,16 @@
 #include<stdio.h>
 
-void swap(int data[], int const firstIndex, int const secondIndex) {
+void swap(const int data[], int const firstIndex, int const secondIndex) {
     int const temp    = data[firstIndex];
     data[firstIndex]  = data[secondIndex];
     data[secondIndex] = temp;
 }
 
-void printIntArray(int const data[], int arrayEndsIndex) {
+void printIntArray(int const data[], int const arrayEndsIndex) {
     for(int i = 0; i <= arrayEndsIndex; ++i) printf("%d ", data[i]);
     printf("\n");
 }
-void makeMaxTheParent(int data[], int const parent, int const arrayEnds) {
+void makeMaxValueTheParent(int const data[], int const parent, int const arrayEnds) {
     int root, leftChild, rightChild;
 
     root = parent;
@@ -37,14 +37,14 @@ void makeMaxTheParent(int data[], int const parent, int const arrayEnds) {
 void buildHeap(int data[], int const arrayEndsIndex) {
     int const lastParent = arrayEndsIndex/ 2;
     for(int i = lastParent; i > -1; --i) 
-        makeMaxTheParent(data, i, arrayEndsIndex);
+        makeMaxValueTheParent(data, i, arrayEndsIndex);
 
     int swapIndex = arrayEndsIndex;
 
     while(swapIndex > 0) {
         swap(data, 0, swapIndex);
 	--swapIndex;
-	makeMaxTheParent(data, 0, swapIndex);
+	makeMaxValueTheParent(data, 0, swapIndex);
     }
 }
 

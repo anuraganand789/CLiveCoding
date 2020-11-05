@@ -22,8 +22,7 @@ int partition(int data[], int const startIndex, int const endIndex){
     int iterCount   = startIndex;
 
     while(iterCount <= _endIndex) {
-        if(data[iterCount] < pivot) 
-	    swap(data, _startIndex++, iterCount);
+        if(data[iterCount] < pivot) { swap(data, _startIndex++, iterCount); }
 	
 	++iterCount;
     }

@@ -8,7 +8,7 @@ void main() {
     int searchValue = 12;
 
     bool found = false; 
-    for(int i = 0; i < dataLength; ++i) if((found = ( data[i] == searchValue ))) break;
+    for(int i = 0; i < dataLength; ++i) if(found = ( data[i] == searchValue )) break;
 
     if(found) printf("Value found.\n");
     else      printf("Value not found.\n");
